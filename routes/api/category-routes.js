@@ -41,7 +41,7 @@ router.get('/:id', async (req, res) => {
     res.status(200).json(categoryData);
   } catch (err) {
     // Catch server error and display error to user
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
 });
 
@@ -105,7 +105,7 @@ router.delete('/:id', async (req, res) => {
       return;
     }
 
-    //Display success message
+    // Display success message
     res.status(200).json(categoryData);
   } catch (err) {
     // Throw 500 error status if the above attempt encounters a server error
