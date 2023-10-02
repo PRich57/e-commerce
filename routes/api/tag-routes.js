@@ -1,20 +1,19 @@
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
 
-// The `/api/tags` endpoint
 // http://localhost:3001/api/tags
 router.get('/', async (req, res) => {
   // Find all tags and include its associated Product data
   try {
     const tagData = await Tag.findAll({
-      // ASK ABOUT HOW TO DO THIS THROUGH ASSOCIATION INSIDE THE INCLUDE. I THINK THIS IS RIGHT
-      include: [{ model: Product, through: ProductTag }],
+      // Include product model
+      include: [{ model: Product }],
     });
 
-    // Send success message
+    // Display success message
     res.status(200).json(tagData);
   } catch (err) {
-    // Throw 500 status if there's a server error
+    // Display error message
     res.status(500).json(err);
   }
 });
@@ -23,8 +22,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   // Find a single tag by its `id` and include its associated Product data
   try {
-    const tagData = await Tag.findByPk(res.params.id, {
-      include: [{ model: Product, through: ProductTag }],
+    const tagData = await Tag.findByPk(req.params.id, {
+      include: [{ model: Product }],
     });
 
     // if no tag exists with that id
@@ -33,17 +32,18 @@ router.get('/:id', async (req, res) => {
       return;
     }
 
-    // Send success message
+    // Display success message
     res.status(200).json(tagData);
   } catch (err) {
-    // Throw 500 error code for server error
+    // Display error message
     res.status(500).json(err);
   }
 });
 
+// Create POST route to create a new tag
 // http://localhost:3001/api/tags
 router.post('/', async (req, res) => {
-  // Create POST route to create a new tag
+  
   try {
     
   } catch (err) {
@@ -71,4 +71,5 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Export router
 module.exports = router;

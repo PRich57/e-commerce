@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
-
 // http://localhost:3001/api/categories
 router.get('/', async (req, res) => {
   // Find all categories with associated products
@@ -15,7 +13,7 @@ router.get('/', async (req, res) => {
     // Display success message
     res.status(200).json(categoryData);
   } catch (err) {
-    // Catch server error and display to user
+    // Display error message
     res.status(500).json(err);
   }
 });
@@ -40,7 +38,7 @@ router.get('/:id', async (req, res) => {
     // Display success message
     res.status(200).json(categoryData);
   } catch (err) {
-    // Catch server error and display error to user
+    // Display error message
     res.status(500).json(err);
   }
 });
@@ -54,7 +52,7 @@ router.post('/', async (req, res) => {
     // Display success message
     res.status(200).json(categoryData);
   } catch (err) {
-    // Throw 400 error code for improper usage and server cannot or will not respond
+    // Display error message
     res.status(400).json(err);
   }
 });
@@ -81,7 +79,7 @@ router.put('/:id', async (req, res) => {
     // Display success message
     res.status(200).json(categoryData);
   } catch (err) {
-    // Throw 500 error status if the above attempt encounters a server error
+    // Display error message
     res.status(500).json(err);
   }
 });
@@ -108,7 +106,7 @@ router.delete('/:id', async (req, res) => {
     // Display success message
     res.status(200).json(categoryData);
   } catch (err) {
-    // Throw 500 error status if the above attempt encounters a server error
+    // Display error message
     res.status(500).json(err);
   }
 });

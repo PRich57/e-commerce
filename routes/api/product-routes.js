@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
-// The `/api/products` endpoint
-
 // Create GET route to get all products
 // http://localhost:3001/api/products
 router.get('/', async (req, res) => {
@@ -15,7 +13,7 @@ router.get('/', async (req, res) => {
     // Display success message
     res.status(200).json(productData);
   } catch (err) {
-    // Catch server error display to user
+    // Display error message
     res.status(500).json(err);
   }
 });
@@ -41,7 +39,7 @@ router.get('/:id', async (req, res) => {
     // Display success message
     res.status(200).json(productData);
   } catch (err) {
-    // Catch server error and display to user
+    // Display error message
     res.status(500).json(err);
   }
 });
@@ -74,6 +72,7 @@ router.post('/', async (req, res) => {
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
     .catch((err) => {
+      // Display error message
       console.log(err);
       res.status(400).json(err);
     });
@@ -140,7 +139,7 @@ router.delete('/:id', async (req, res) => {
 
     // if no category exists with this id
     if (!productData) {
-      // Send 404 not found response and display the message to the user
+      // Display error message
       res.status(404).json({ message: 'No category found with that id!' });
       return;
     }
@@ -148,7 +147,7 @@ router.delete('/:id', async (req, res) => {
     // Display success message
     res.status(200).json(productData);
   } catch (err) {
-    // Throw 500 error status if the above attempt encounters a server error
+    // Display error message
     res.status(500).json(err);
   }
 });
