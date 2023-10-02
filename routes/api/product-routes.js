@@ -1,10 +1,9 @@
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
-// Create GET route to get all products
 // http://localhost:3001/api/products
 router.get('/', async (req, res) => {
-  // Find all products and include associated Category and Tag data
+  // Create GET route to find all products and include associated Category and Tag data
   try {
     const productData = await Product.findAll({
       // Include (join) the category and tag models
@@ -18,10 +17,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create GET route to get one product
 // http://localhost:3001/api/products/{user input id}
 router.get('/:id', async (req, res) => {
-  // Find a single product by its `id`and include its associated Category and Tag data
+  // Create GET route to find a single product by its `id`and include its associated Category and Tag data
   try {
     // Search for product with id matching user provided id
     const productData = await Product.findByPk(req.params.id, {
@@ -44,17 +42,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create POST route to create new product
 // http://localhost:3001/api/products
 router.post('/', async (req, res) => {
   /* req.body should look like this...
-    {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
+  {
+    product_name: "Basketball",
+    price: 200.00,
+    stock: 3,
+    tagIds: [1, 2, 3, 4]
+  }
   */
+ // Create POST route to create new product
   Product.create(req.body)
     .then((product) => {
       // if there are product tags, we need to create pairings to bulk create in the ProductTag model
@@ -78,10 +76,9 @@ router.post('/', async (req, res) => {
     });
 });
 
-// Create PUT route to update product
 // http://localhost:3001/api/products/{user input id}
 router.put('/:id', async (req, res) => {
-  // update product data
+  // Create PUT route to update product data
   Product.update(req.body, {
     where: {
       id: req.params.id,
@@ -124,10 +121,9 @@ router.put('/:id', async (req, res) => {
     });
 });
 
-// Create DELETE route to remove product
 // http://localhost:3001/api/products/{user input id}
 router.delete('/:id', async (req, res) => {
-  // Delete one product by its `id` value
+  // Create DELETE route to remove product by its `id` value
   try {
     // Find the product by the provided id and use destroy method
     const productData = await Product.destroy({
