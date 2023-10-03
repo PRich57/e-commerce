@@ -88,6 +88,22 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   // Create DELETE route to remove a category by its `id` value
   try {
+    // Remove category from related products
+    const productsToUpdate = await Product.findAll({
+      where: {
+        category_id: req.params.id
+      },
+    });
+
+    // Make a promise object for the map process
+    await Promise.all(
+      // Map over the products with the matching category_id
+      productsToUpdate.map(async (product) => {
+        // Remove the reference
+        await product.update({ category_id: null });
+      })
+    );
+
     // Find the category by the provided id and use destroy method
     const categoryData = await Category.destroy({
       // Delete category where id matches the provided id
